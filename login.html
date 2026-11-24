@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | TravelMate</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Toast Notifications -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Auth Main Container -->
+  <div class="auth-page">
+    <!-- Top Bar Controls -->
+    <div style="position: absolute; top: 1.5rem; left: 2rem; z-index: 20;">
+      <a href="index.html" class="btn btn-outline btn-sm" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+        <i class="fa-solid fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+
+    <div style="position: absolute; top: 1.5rem; right: 2rem; z-index: 20;">
+      <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Theme" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+
+    <!-- Login Card -->
+    <div class="auth-card">
+      <div class="auth-brand">
+        <a href="index.html" class="brand-logo" style="justify-content: center; font-size: 1.8rem; margin-bottom: 0.5rem;">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Travel</span>Mate
+        </a>
+        <h2>Welcome Back</h2>
+        <p id="login-subheading">Sign in to access your personal trips and saved wishlist.</p>
+      </div>
+
+      <!-- Optional Redirect Notice Banner -->
+      <div id="redirect-notice-banner" style="display:none; background:rgba(6,182,212,0.12); color:var(--turquoise-600); border:1px solid rgba(6,182,212,0.25); border-radius:var(--radius-md); padding:0.75rem 1rem; margin-bottom:1.25rem; font-size:0.875rem; font-weight:600; text-align:center;">
+        <i class="fa-solid fa-lock"></i> <span id="redirect-notice-text">Please sign in to proceed.</span>
+      </div>
+
+      <form id="login-form">
+        <!-- Email Input -->
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label class="form-label" for="login-email">
+            <i class="fa-solid fa-envelope" style="color:var(--turquoise-500);"></i> Email Address *
+          </label>
+          <div class="auth-input-group">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input type="email" id="login-email" placeholder="name@example.com" required autocomplete="email">
+          </div>
+          <div class="error-message" id="email-error">Please enter a valid email address.</div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group" style="margin-bottom: 0.75rem;">
+          <label class="form-label" for="login-password">
+            <i class="fa-solid fa-lock" style="color:var(--turquoise-500);"></i> Password *
+          </label>
+          <div class="auth-input-group">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" id="login-password" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="password-toggle-btn" id="toggle-password-btn" aria-label="Toggle password visibility">
+              <i class="fa-solid fa-eye" id="password-eye-icon"></i>
+            </button>
+          </div>
+          <div class="error-message" id="password-error">Password is required.</div>
+        </div>
+
+        <!-- General Invalid Credentials Error -->
+        <div class="error-message" id="credentials-error" style="margin-bottom: 1rem; text-align:center; font-weight:600;">
+          Invalid email or password. Please check your credentials or register an account.
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="auth-options">
+          <label class="remember-me">
+            <input type="checkbox" id="remember-me-checkbox" checked>
+            <span>Remember me</span>
+          </label>
+          <a href="#" id="forgot-password-link" style="color:var(--turquoise-600); font-weight:600;">Need Help?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-turquoise" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+          <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account yet? 
+        <a href="register.html" id="register-redirect-link">Create free account <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Educational Demonstration Notice -->
+      <div class="security-disclaimer-box">
+        <i class="fa-solid fa-circle-info" style="color:var(--accent-amber); margin-right:0.35rem;"></i>
+        <strong>Academic Demonstration Note:</strong> This project stores registered accounts and active sessions in client-side storage (localStorage / sessionStorage). In production applications, authentication and credentials must be secured via backend servers with password hashing and HTTPS cookies.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme sync
+    const savedTheme = localStorage.getItem("tm_theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    const themeBtn = document.getElementById("theme-toggle-btn");
+    if (themeBtn) {
+      themeBtn.innerHTML = savedTheme === "dark" 
+        ? '<i class="fa-solid fa-sun"></i>' 
+        : '<i class="fa-solid fa-moon"></i>';
+      themeBtn.addEventListener("click", () => {
+        const curr = document.documentElement.getAttribute("data-theme") || "light";
+        const next = curr === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("tm_theme", next);
+        themeBtn.innerHTML = next === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+      });
+    }
+
+    // Check URL parameters for redirect
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTarget = urlParams.get("redirect");
+
+    const regLink = document.getElementById("register-redirect-link");
+    if (redirectTarget && regLink) {
+      regLink.href = `register.html?redirect=${encodeURIComponent(redirectTarget)}`;
+    }
+
+    const banner = document.getElementById("redirect-notice-banner");
+    const bannerText = document.getElementById("redirect-notice-text");
+    if (redirectTarget && banner && bannerText) {
+      banner.style.display = "block";
+      if (redirectTarget === "wishlist") {
+        bannerText.textContent = "Please sign in to view and manage your Wishlist.";
+      } else if (redirectTarget === "my-trips") {
+        bannerText.textContent = "Please sign in to access your personal My Trips dashboard.";
+      } else if (redirectTarget === "planner") {
+        bannerText.textContent = "Please sign in to save your travel itinerary.";
+      } else if (redirectTarget === "journal") {
+        bannerText.textContent = "Please sign in to access your Personal Travel Journal.";
+      } else if (redirectTarget === "gallery") {
+        bannerText.textContent = "Please sign in to view and manage your Travel Photo Gallery.";
+      } else {
+        bannerText.textContent = "Sign in required to view this protected page.";
+      }
+    }
+
+    // Toast helper
+    function showAuthToast(msg, type = "info") {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `<i class="fa-solid fa-circle-info"></i><span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.add("fade-out");
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // Toggle password visibility
+    const togglePasswordBtn = document.getElementById("toggle-password-btn");
+    const passwordInput = document.getElementById("login-password");
+    const eyeIcon = document.getElementById("password-eye-icon");
+
+    if (togglePasswordBtn && passwordInput && eyeIcon) {
+      togglePasswordBtn.addEventListener("click", () => {
+        const isPassword = passwordInput.type === "password";
+        passwordInput.type = isPassword ? "text" : "password";
+        eyeIcon.className = isPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+      });
+    }
+
+    // Check pre-saved remembered email
+    const rememberedEmail = localStorage.getItem("tm_remembered_email");
+    if (rememberedEmail) {
+      document.getElementById("login-email").value = rememberedEmail;
+    }
+
+    // Help link
+    document.getElementById("forgot-password-link").addEventListener("click", (e) => {
+      e.preventDefault();
+      showAuthToast("Please register a new account using the 'Create free account' link below.", "info");
+    });
+
+    // Handle form submit
+    const loginForm = document.getElementById("login-form");
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("login-email").value.trim().toLowerCase();
+      const password = document.getElementById("login-password").value;
+      const remember = document.getElementById("remember-me-checkbox").checked;
+
+      const emailErr = document.getElementById("email-error");
+      const passErr = document.getElementById("password-error");
+      const credErr = document.getElementById("credentials-error");
+      emailErr.classList.remove("visible");
+      passErr.classList.remove("visible");
+      credErr.classList.remove("visible");
+
+      // Validation
+      if (!email || !email.includes("@")) {
+        emailErr.textContent = "Please enter a valid email address.";
+        emailErr.classList.add("visible");
+        return;
+      }
+
+      if (!password) {
+        passErr.textContent = "Password is required.";
+        passErr.classList.add("visible");
+        return;
+      }
+
+      // Read users registered in localStorage
+      let users = [];
+      try {
+        users = JSON.parse(localStorage.getItem("tm_users")) || [];
+      } catch (err) {
+        users = [];
+      }
+
+      // Check credentials against registered accounts only
+      const foundUser = users.find(u => u.email.toLowerCase() === email && u.password === password);
+
+      if (!foundUser) {
+        credErr.textContent = "Invalid email or password. Please verify your credentials or register an account.";
+        credErr.classList.add("visible");
+        showAuthToast("Authentication failed. Invalid credentials.", "error");
+        return;
+      }
+
+      // User session payload
+      const sessionUser = {
+        id: foundUser.id,
+        name: foundUser.name,
+        email: foundUser.email,
+        joinedDate: foundUser.joinedDate || "2026"
+      };
+
+      // Set active session in sessionStorage
+      sessionStorage.setItem("tm_session_user", JSON.stringify(sessionUser));
+
+      // If Remember Me is checked, also save to localStorage
+      if (remember) {
+        localStorage.setItem("tm_current_user", JSON.stringify(sessionUser));
+        localStorage.setItem("tm_remembered_email", email);
+      } else {
+        localStorage.removeItem("tm_current_user");
+        localStorage.removeItem("tm_remembered_email");
+      }
+
+      showAuthToast(`Welcome back, ${foundUser.name}! Logging you in...`, "success");
+
+      setTimeout(() => {
+        if (redirectTarget) {
+          window.location.href = `index.html#${redirectTarget}`;
+        } else {
+          window.location.href = "index.html";
+        }
+      }, 900);
+    });
+  </script>
+</body>
+</html>

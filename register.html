@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Your Account | TravelMate</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Toast Notifications -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Auth Main Container -->
+  <div class="auth-page">
+    <!-- Top Bar Controls -->
+    <div style="position: absolute; top: 1.5rem; left: 2rem; z-index: 20;">
+      <a href="index.html" class="btn btn-outline btn-sm" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+        <i class="fa-solid fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+
+    <div style="position: absolute; top: 1.5rem; right: 2rem; z-index: 20;">
+      <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Theme" style="background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.2);">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+
+    <!-- Registration Card -->
+    <div class="auth-card" style="max-width: 520px;">
+      <div class="auth-brand">
+        <a href="index.html" class="brand-logo" style="justify-content: center; font-size: 1.8rem; margin-bottom: 0.5rem;">
+          <i class="fa-solid fa-paper-plane"></i>
+          <span>Travel</span>Mate
+        </a>
+        <h2>Start Your Travel Story</h2>
+        <p>Create your personal account to save wishlists and organize custom itineraries.</p>
+      </div>
+
+      <form id="register-form">
+        <!-- Full Name Input -->
+        <div class="form-group" style="margin-bottom: 1.15rem;">
+          <label class="form-label" for="reg-name">
+            <i class="fa-solid fa-user" style="color:var(--turquoise-500);"></i> Full Name *
+          </label>
+          <div class="auth-input-group">
+            <i class="fa-solid fa-user input-icon"></i>
+            <input type="text" id="reg-name" placeholder="e.g. Maya Chen" required autocomplete="name">
+          </div>
+          <div class="error-message" id="name-error">Please enter your full name.</div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group" style="margin-bottom: 1.15rem;">
+          <label class="form-label" for="reg-email">
+            <i class="fa-solid fa-envelope" style="color:var(--turquoise-500);"></i> Email Address *
+          </label>
+          <div class="auth-input-group">
+            <i class="fa-solid fa-envelope input-icon"></i>
+            <input type="email" id="reg-email" placeholder="name@example.com" required autocomplete="email">
+          </div>
+          <div class="error-message" id="email-error">Please enter a valid email address.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group" style="margin-bottom: 1.15rem;">
+          <label class="form-label" for="reg-password">
+            <i class="fa-solid fa-lock" style="color:var(--turquoise-500);"></i> Password *
+          </label>
+          <div class="auth-input-group">
+            <i class="fa-solid fa-lock input-icon"></i>
+            <input type="password" id="reg-password" placeholder="At least 6 characters" required autocomplete="new-password">
+            <button type="button" class="password-toggle-btn" id="toggle-reg-pass-btn" aria-label="Toggle password visibility">
+              <i class="fa-solid fa-eye" id="reg-eye-icon-1"></i>
+            </button>
+          </div>
+          <div class="error-message" id="password-error">Password must be at least 6 characters long.</div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label class="form-label" for="reg-confirm-password">
+            <i class="fa-solid fa-shield-halved" style="color:var(--turquoise-500);"></i> Confirm Password *
+          </label>
+          <div class="auth-input-group">
+            <i class="fa-solid fa-shield-halved input-icon"></i>
+            <input type="password" id="reg-confirm-password" placeholder="Repeat your password" required autocomplete="new-password">
+            <button type="button" class="password-toggle-btn" id="toggle-confirm-pass-btn" aria-label="Toggle confirm password visibility">
+              <i class="fa-solid fa-eye" id="reg-eye-icon-2"></i>
+            </button>
+          </div>
+          <div class="error-message" id="confirm-password-error">Passwords do not match.</div>
+        </div>
+
+        <!-- Terms Agreement -->
+        <div class="auth-options" style="margin: 0.5rem 0 1.5rem 0;">
+          <label class="remember-me" style="font-size: 0.85rem;">
+            <input type="checkbox" id="terms-checkbox" required checked>
+            <span>I agree to TravelMate's <a href="#" style="color:var(--turquoise-600); text-decoration:underline;">Terms</a> and <a href="#" style="color:var(--turquoise-600); text-decoration:underline;">Privacy Policy</a></span>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-turquoise" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+          <i class="fa-solid fa-user-plus"></i> Register & Continue
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Already registered? 
+        <a href="login.html" id="login-redirect-link">Sign in here <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Educational Demonstration Notice -->
+      <div class="security-disclaimer-box">
+        <i class="fa-solid fa-circle-info" style="color:var(--accent-amber); margin-right:0.35rem;"></i>
+        <strong>Academic Demonstration Note:</strong> User registration stores your account details in browser localStorage. Client-side authentication is designed for demo and college project presentation.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme setup
+    const savedTheme = localStorage.getItem("tm_theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    const themeBtn = document.getElementById("theme-toggle-btn");
+    if (themeBtn) {
+      themeBtn.innerHTML = savedTheme === "dark" 
+        ? '<i class="fa-solid fa-sun"></i>' 
+        : '<i class="fa-solid fa-moon"></i>';
+      themeBtn.addEventListener("click", () => {
+        const curr = document.documentElement.getAttribute("data-theme") || "light";
+        const next = curr === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("tm_theme", next);
+        themeBtn.innerHTML = next === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+      });
+    }
+
+    // Check URL parameters for redirect
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTarget = urlParams.get("redirect");
+
+    const loginLink = document.getElementById("login-redirect-link");
+    if (redirectTarget && loginLink) {
+      loginLink.href = `login.html?redirect=${encodeURIComponent(redirectTarget)}`;
+    }
+
+    // Toast helper
+    function showAuthToast(msg, type = "info") {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `<i class="fa-solid fa-circle-info"></i><span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.add("fade-out");
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // Password show/hide toggles
+    const passInput = document.getElementById("reg-password");
+    const confirmInput = document.getElementById("reg-confirm-password");
+    const btn1 = document.getElementById("toggle-reg-pass-btn");
+    const btn2 = document.getElementById("toggle-confirm-pass-btn");
+    const eye1 = document.getElementById("reg-eye-icon-1");
+    const eye2 = document.getElementById("reg-eye-icon-2");
+
+    if (btn1 && passInput && eye1) {
+      btn1.addEventListener("click", () => {
+        const isPass = passInput.type === "password";
+        passInput.type = isPass ? "text" : "password";
+        eye1.className = isPass ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+      });
+    }
+
+    if (btn2 && confirmInput && eye2) {
+      btn2.addEventListener("click", () => {
+        const isPass = confirmInput.type === "password";
+        confirmInput.type = isPass ? "text" : "password";
+        eye2.className = isPass ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
+      });
+    }
+
+    // Handle form submit
+    const regForm = document.getElementById("register-form");
+    regForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("reg-name").value.trim();
+      const email = document.getElementById("reg-email").value.trim().toLowerCase();
+      const password = document.getElementById("reg-password").value;
+      const confirmPassword = document.getElementById("reg-confirm-password").value;
+
+      const nameErr = document.getElementById("name-error");
+      const emailErr = document.getElementById("email-error");
+      const passErr = document.getElementById("password-error");
+      const confirmErr = document.getElementById("confirm-password-error");
+
+      nameErr.classList.remove("visible");
+      emailErr.classList.remove("visible");
+      passErr.classList.remove("visible");
+      confirmErr.classList.remove("visible");
+
+      let isValid = true;
+
+      if (!name || name.length < 2) {
+        nameErr.textContent = "Please provide your full name (at least 2 characters).";
+        nameErr.classList.add("visible");
+        isValid = false;
+      }
+
+      if (!email || !email.includes("@") || !email.includes(".")) {
+        emailErr.textContent = "Please enter a valid email address.";
+        emailErr.classList.add("visible");
+        isValid = false;
+      }
+
+      if (!password || password.length < 6) {
+        passErr.textContent = "Password must be at least 6 characters long.";
+        passErr.classList.add("visible");
+        isValid = false;
+      }
+
+      if (password !== confirmPassword) {
+        confirmErr.textContent = "Passwords do not match. Please re-enter.";
+        confirmErr.classList.add("visible");
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Check existing users in localStorage
+      let users = [];
+      try {
+        users = JSON.parse(localStorage.getItem("tm_users")) || [];
+      } catch (err) {
+        users = [];
+      }
+
+      const existingUser = users.find(u => u.email.toLowerCase() === email);
+      if (existingUser) {
+        emailErr.textContent = "An account with this email already exists. Please sign in.";
+        emailErr.classList.add("visible");
+        showAuthToast("Email already registered!", "error");
+        return;
+      }
+
+      // Generate unique user ID
+      const userId = "usr_" + Date.now() + "_" + Math.random().toString(36).substr(2, 8);
+
+      const newUser = {
+        id: userId,
+        name,
+        email,
+        password,
+        joinedDate: new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })
+      };
+
+      users.push(newUser);
+      localStorage.setItem("tm_users", JSON.stringify(users));
+
+      // Auto login user into session
+      const sessionUser = {
+        id: newUser.id,
+        name: newUser.name,
+        email: newUser.email,
+        joinedDate: newUser.joinedDate
+      };
+      sessionStorage.setItem("tm_session_user", JSON.stringify(sessionUser));
+      localStorage.setItem("tm_current_user", JSON.stringify(sessionUser));
+
+      showAuthToast(`Account registered! Welcome to TravelMate, ${name}!`, "success");
+
+      setTimeout(() => {
+        if (redirectTarget) {
+          window.location.href = `index.html#${redirectTarget}`;
+        } else {
+          window.location.href = "index.html";
+        }
+      }, 950);
+    });
+  </script>
+</body>
+</html>

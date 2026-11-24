@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TravelMate | Discover Your Next Adventure & Trip Planner</title>
+  <meta name="description" content="Plan, explore and experience the world with TravelMate - modern itineraries, smart expense tracking, and curated destination guides.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="TravelMate Home">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Travel</span>Mate
+      </a>
+
+      <!-- Navigation Links -->
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#hero" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li><a href="#explore" class="nav-link"><i class="fa-solid fa-compass"></i> Explore</a></li>
+          <li><a href="#planner" class="nav-link"><i class="fa-solid fa-calendar-plus"></i> Plan a Trip</a></li>
+          <li><a href="#my-trips" class="nav-link"><i class="fa-solid fa-suitcase-rolling"></i> My Trips</a></li>
+          <li><a href="#budget" class="nav-link"><i class="fa-solid fa-wallet"></i> Budget</a></li>
+          <li>
+            <a href="#wishlist" class="nav-link">
+              <i class="fa-solid fa-heart"></i> Wishlist 
+              <span id="wishlist-count-badge" class="section-badge" style="padding: 0.15rem 0.5rem; font-size:0.75rem; margin-left:0.25rem;">0</span>
+            </a>
+          </li>
+          <li><a href="#journal" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Journal</a></li>
+          <li><a href="#gallery" class="nav-link"><i class="fa-solid fa-images"></i> Gallery</a></li>
+          <li><a href="#checklist" class="nav-link"><i class="fa-solid fa-list-check"></i> Packing</a></li>
+          <li><a href="form.html">Form</a></li>
+        </ul>
+      </nav>
+
+      <!-- Navigation Actions -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle Dark/Light Mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <!-- User Profile / Auth State -->
+        <div id="nav-auth-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-pill">
+          <i class="fa-solid fa-sparkles"></i>
+          <span>Welcome to TravelMate • <span id="current-date-display">Today</span></span>
+        </div>
+
+        <h1 class="hero-title">
+          Discover Your Next <span>Adventure</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+          Plan, explore and experience the world with TravelMate. Seamless itineraries, smart budget calculators, and handpicked global destinations.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#explore" class="btn btn-turquoise">
+            <i class="fa-solid fa-compass"></i> Explore Destinations
+          </a>
+          <a href="#planner" class="btn btn-outline" style="color:#ffffff; border-color:rgba(255,255,255,0.4);">
+            <i class="fa-solid fa-map-location-dot"></i> Plan Your Trip
+          </a>
+        </div>
+
+        <!-- Quick Search Bar in Hero -->
+        <div class="hero-search-box">
+          <div class="search-field">
+            <label for="hero-search-dest"><i class="fa-solid fa-location-dot"></i> Destination</label>
+            <input type="text" id="hero-search-dest" placeholder="e.g. Munnar, Bali, Paris...">
+          </div>
+
+          <div class="search-field">
+            <label for="hero-search-category"><i class="fa-solid fa-layer-group"></i> Category</label>
+            <select id="hero-search-category">
+              <option value="">All Categories</option>
+              <option value="Hill Station">Hill Station</option>
+              <option value="Beach">Beach Getaway</option>
+              <option value="International">International</option>
+              <option value="Nature">Nature & Valleys</option>
+            </select>
+          </div>
+
+          <div class="search-field">
+            <label for="hero-search-budget"><i class="fa-solid fa-coins"></i> Max Budget</label>
+            <select id="hero-search-budget">
+              <option value="">Any Budget</option>
+              <option value="25000">Under ₹25,000</option>
+              <option value="50000">Under ₹50,000</option>
+              <option value="100000">Under ₹1,00,000</option>
+              <option value="200000">Under ₹2,00,000</option>
+            </select>
+          </div>
+
+          <div>
+            <button class="btn btn-turquoise" id="hero-search-btn" style="width:100%; height:46px;">
+              <i class="fa-solid fa-magnifying-glass"></i> Search
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Stats Counter -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number">11+</span>
+            <span class="stat-label">Handpicked Destinations</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">10,000+</span>
+            <span class="stat-label">Happy Travelers</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">4.9 / 5</span>
+            <span class="stat-label">Average Ratings</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Free Itinerary Tools</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="section" style="background-color: var(--bg-surface-secondary); padding: 4.5rem 0;">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-award"></i> The TravelMate Edge</span>
+        <h2 class="section-title">Why Plan With TravelMate?</h2>
+        <p class="section-subtitle">Everything you need to turn wanderlust into unforgettable memories without the headache.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-circle">
+            <i class="fa-solid fa-map"></i>
+          </div>
+          <h3 class="feature-title">Smart Trip Itineraries</h3>
+          <p class="feature-desc">Create customizable day-by-day travel schedules with flexible traveler counts and dates.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-circle">
+            <i class="fa-solid fa-calculator"></i>
+          </div>
+          <h3 class="feature-title">Real-Time Expense Tracker</h3>
+          <p class="feature-desc">Monitor spending across hotels, food, and flights with automated over-budget safety alerts.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-circle">
+            <i class="fa-solid fa-heart-circle-check"></i>
+          </div>
+          <h3 class="feature-title">Dream Wishlist</h3>
+          <p class="feature-desc">Bookmark dreamy escapes with a single tap and seamlessly convert them into booked itineraries.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-circle">
+            <i class="fa-solid fa-suitcase"></i>
+          </div>
+          <h3 class="feature-title">Packing Checklist</h3>
+          <p class="feature-desc">Never forget your passport, chargers, or medicines with categorized interactive checklists.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destination Explorer Section -->
+  <section class="section" id="explore">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-globe"></i> Destination Explorer</span>
+        <h2 class="section-title">Explore Breathtaking Getaways</h2>
+        <p class="section-subtitle">From misty hill retreats to sun-soaked tropical beaches and iconic world capitals.</p>
+      </div>
+
+      <!-- Controls & Filter Toolbar -->
+      <div class="explorer-controls">
+        <div class="explorer-top-row">
+          <!-- Live Search Input -->
+          <div class="search-input-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="dest-search-input" placeholder="Search by destination name, country or vibe...">
+          </div>
+
+          <!-- Sort Select -->
+          <div>
+            <select class="control-select" id="dest-sort-select" style="width:100%;">
+              <option value="featured">Sort by: Featured</option>
+              <option value="rating">Top Rated (Highest First)</option>
+              <option value="price-low">Budget: Low to High</option>
+              <option value="price-high">Budget: High to Low</option>
+              <option value="name">Alphabetical (A - Z)</option>
+            </select>
+          </div>
+
+          <!-- Price Range Slider -->
+          <div class="price-range-wrap">
+            <span>Budget Up to:</span>
+            <input type="range" id="dest-price-slider" min="15000" max="200000" step="5000" value="200000">
+            <span id="slider-price-val" style="font-weight:700; color:var(--turquoise-600); min-width:80px;">₹2,00,000</span>
+          </div>
+        </div>
+
+        <!-- Category Chips -->
+        <div class="category-chips">
+          <span style="font-size:0.85rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Categories:</span>
+          <button class="chip-btn active" data-category="all">All Destinations</button>
+          <button class="chip-btn" data-category="Hill Station">Hill Stations</button>
+          <button class="chip-btn" data-category="Beach">Tropical Beaches</button>
+          <button class="chip-btn" data-category="Nature">Nature & Valleys</button>
+          <button class="chip-btn" data-category="International">International</button>
+        </div>
+      </div>
+
+      <!-- Destinations Grid -->
+      <div class="destinations-grid" id="destinations-grid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Trip Planner Section -->
+  <section class="section" id="planner" style="background-color: var(--bg-surface-secondary);">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-calendar-days"></i> Itinerary Builder</span>
+        <h2 class="section-title">Plan Your Next Journey</h2>
+        <p class="section-subtitle">Define your destination, dates, travel party, and budget to keep every plan structured.</p>
+      </div>
+
+      <div class="planner-card">
+        <form id="trip-planner-form">
+          <div class="planner-form-grid">
+            <!-- Trip Name -->
+            <div class="form-group">
+              <label for="trip-name-input" class="form-label">
+                <i class="fa-solid fa-tag" style="color:var(--turquoise-500);"></i> Trip Name *
+              </label>
+              <input type="text" id="trip-name-input" class="form-control" placeholder="e.g. Kerala Monsoon Escape" required>
+            </div>
+
+            <!-- Destination Select / Dropdown -->
+            <div class="form-group">
+              <label for="trip-destination-input" class="form-label">
+                <i class="fa-solid fa-location-dot" style="color:var(--turquoise-500);"></i> Destination *
+              </label>
+              <select id="trip-destination-input" class="form-control" required>
+                <option value="">Select or choose destination...</option>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <!-- Starting Date -->
+            <div class="form-group">
+              <label for="trip-start-input" class="form-label">
+                <i class="fa-regular fa-calendar-check" style="color:var(--turquoise-500);"></i> Starting Date *
+              </label>
+              <input type="date" id="trip-start-input" class="form-control" required>
+            </div>
+
+            <!-- Ending Date -->
+            <div class="form-group">
+              <label for="trip-end-input" class="form-label">
+                <i class="fa-regular fa-calendar-xmark" style="color:var(--turquoise-500);"></i> Ending Date *
+              </label>
+              <input type="date" id="trip-end-input" class="form-control" required>
+            </div>
+
+            <!-- Number of Travellers -->
+            <div class="form-group">
+              <label for="trip-travellers-input" class="form-label">
+                <i class="fa-solid fa-users" style="color:var(--turquoise-500);"></i> Number of Travellers *
+              </label>
+              <input type="number" id="trip-travellers-input" class="form-control" min="1" max="50" value="2" required>
+            </div>
+
+            <!-- Total Budget -->
+            <div class="form-group">
+              <label for="trip-budget-input" class="form-label">
+                <i class="fa-solid fa-wallet" style="color:var(--turquoise-500);"></i> Total Budget (₹) *
+              </label>
+              <input type="number" id="trip-budget-input" class="form-control" min="1000" step="500" placeholder="e.g. 45000" required>
+            </div>
+
+            <!-- Trip Notes / Remarks -->
+            <div class="form-group full-width">
+              <label for="trip-notes-input" class="form-label">
+                <i class="fa-solid fa-note-sticky" style="color:var(--turquoise-500);"></i> Trip Notes & Ideas (Optional)
+              </label>
+              <textarea id="trip-notes-input" class="form-control" rows="3" placeholder="Hotel preferences, flight numbers, places to visit..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="reset" class="btn btn-outline">
+              <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+            <button type="submit" class="btn btn-turquoise">
+              <i class="fa-solid fa-cloud-arrow-up"></i> Save & Schedule Trip
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- My Trips Section -->
+  <section class="section" id="my-trips">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-suitcase-rolling"></i> Your Itineraries</span>
+        <h2 class="section-title">My Saved Trips</h2>
+        <p class="section-subtitle">Review upcoming adventures, track duration, edit dates, and manage associated budgets.</p>
+      </div>
+
+      <!-- Live Trip Departure Countdown Hub -->
+      <div id="countdown-section-wrapper"></div>
+
+      <div class="trips-grid" id="trips-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Budget Calculator Section -->
+  <section class="section" id="budget" style="background-color: var(--bg-surface-secondary);">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-calculator"></i> Smart Finance</span>
+        <h2 class="section-title">Interactive Expense Calculator</h2>
+        <p class="section-subtitle">Track your vacation expenses by category and stay within your financial comfort zone.</p>
+      </div>
+
+      <!-- Budget Stats Overview -->
+      <div class="budget-dashboard">
+        <div class="budget-stats-grid">
+          <div class="budget-stat-card">
+            <div class="stat-icon blue">
+              <i class="fa-solid fa-vault"></i>
+            </div>
+            <div class="stat-meta">
+              <h4>Total Budget Limit</h4>
+              <p id="stat-total-budget">₹0</p>
+            </div>
+          </div>
+
+          <div class="budget-stat-card">
+            <div class="stat-icon red">
+              <i class="fa-solid fa-money-bill-transfer"></i>
+            </div>
+            <div class="stat-meta">
+              <h4>Total Expenses</h4>
+              <p id="stat-total-spent">₹0</p>
+            </div>
+          </div>
+
+          <div class="budget-stat-card">
+            <div class="stat-icon green">
+              <i class="fa-solid fa-piggy-bank"></i>
+            </div>
+            <div class="stat-meta">
+              <h4>Remaining Balance</h4>
+              <p id="stat-remaining-balance">₹0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Budget Progress Bar -->
+        <div class="budget-progress-container">
+          <div class="progress-header">
+            <span>Budget Utilization</span>
+            <span id="budget-progress-percent">0% spent</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="budget-progress-fill"></div>
+          </div>
+        </div>
+
+        <!-- Budget Warning Banner -->
+        <div class="budget-alert-banner" id="budget-alert-banner">
+          <!-- Injected dynamically -->
+        </div>
+
+        <!-- Left Form: Add Expense & Target Selector -->
+        <div class="planner-card" style="margin: 0; padding: 2rem;">
+          <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1.25rem; color: var(--text-main);">
+            <i class="fa-solid fa-plus-circle" style="color:var(--turquoise-500);"></i> Add Expense Record
+          </h3>
+
+          <!-- Active Trip Target -->
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <label class="form-label" for="expense-trip-select">Linked Trip</label>
+            <select id="expense-trip-select" class="form-control">
+              <!-- Dynamically populated from trips -->
+            </select>
+          </div>
+
+          <!-- Custom Budget Limit Override -->
+          <div class="form-group" style="margin-bottom: 1.25rem;">
+            <label class="form-label" for="budget-limit-input">Adjust Budget Allocation (₹)</label>
+            <input type="number" id="budget-limit-input" class="form-control" placeholder="Trip Budget Limit">
+          </div>
+
+          <form id="add-expense-form">
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label" for="expense-title-input">Expense Description *</label>
+              <input type="text" id="expense-title-input" class="form-control" placeholder="e.g. Scuba diving ticket" required>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label" for="expense-category-input">Category *</label>
+              <select id="expense-category-input" class="form-control" required>
+                <option value="Accommodation">Accommodation (Hotel/Resort)</option>
+                <option value="Food">Food & Dining</option>
+                <option value="Transportation">Transportation (Flights/Cabs)</option>
+                <option value="Activities">Activities & Sightseeing</option>
+                <option value="Shopping">Shopping & Souvenirs</option>
+                <option value="Other">Other Expenses</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label" for="expense-amount-input">Amount (₹) *</label>
+              <input type="number" id="expense-amount-input" class="form-control" min="1" step="50" placeholder="e.g. 3500" required>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+              <label class="form-label" for="expense-date-input">Expense Date</label>
+              <input type="date" id="expense-date-input" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-turquoise" style="width: 100%;">
+              <i class="fa-solid fa-receipt"></i> Log Expense
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Side: Expense List Table -->
+        <div class="expense-list-card">
+          <div class="expense-list-header">
+            <div>
+              <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main);">Expense Breakdown</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">Recorded receipts for this itinerary</p>
+            </div>
+            <div>
+              <select id="expense-category-filter" class="control-select" style="padding: 0.4rem 0.8rem; font-size:0.85rem;">
+                <option value="all">All Categories</option>
+                <option value="Accommodation">Accommodation</option>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Activities">Activities</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="expenses-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th style="text-align:right;">Action</th>
+                </tr>
+              </thead>
+              <tbody id="expenses-table-body">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wishlist Section -->
+  <section class="section" id="wishlist">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-heart"></i> Bucket List</span>
+        <h2 class="section-title">Saved Destinations</h2>
+        <p class="section-subtitle">Your personally curated favorite spots around India and the world.</p>
+      </div>
+
+      <div class="destinations-grid" id="wishlist-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Personal Travel Journal Section -->
+  <section class="section" id="journal">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-book-bookmark"></i> Memory Vault</span>
+        <h2 class="section-title">Personal Travel Journal</h2>
+        <p class="section-subtitle">Capture unforgettable reflections, travel diary stories, and keepsake photographs from each journey.</p>
+      </div>
+
+      <!-- Journal Action Bar & Filter -->
+      <div class="journal-toolbar" id="journal-toolbar">
+        <button class="btn btn-turquoise" id="open-new-journal-btn">
+          <i class="fa-solid fa-pen-nib"></i> Add Journal Entry
+        </button>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <label for="journal-trip-filter" style="font-size:0.875rem; font-weight:600; color:var(--text-muted);"><i class="fa-solid fa-filter"></i> Filter by Trip:</label>
+          <select id="journal-trip-filter" class="control-select">
+            <option value="all">All Trips & Memories</option>
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Journal Memories Grid -->
+      <div class="journal-grid" id="journal-grid">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Personal Travel Gallery Section ===== -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-images"></i> Photo Album</span>
+        <h2 class="section-title">Travel Photo Gallery</h2>
+        <p class="section-subtitle">Upload, organise and cherish your travel photographs — sorted by trip with custom captions.</p>
+      </div>
+
+      <!-- Gallery Toolbar -->
+      <div class="gallery-toolbar" id="gallery-toolbar">
+        <button class="btn btn-turquoise" id="open-upload-photo-btn">
+          <i class="fa-solid fa-cloud-arrow-up"></i> Upload Photos
+        </button>
+        <div class="gallery-controls">
+          <div style="display:flex; align-items:center; gap:0.6rem;">
+            <label for="gallery-trip-filter" style="font-size:0.875rem; font-weight:600; color:var(--text-muted); white-space:nowrap;">
+              <i class="fa-solid fa-filter"></i> Trip:
+            </label>
+            <select id="gallery-trip-filter" class="control-select">
+              <option value="all">All Photos</option>
+            </select>
+          </div>
+          <div class="gallery-view-toggle">
+            <button class="gallery-view-btn active" id="gallery-grid-btn" title="Grid View">
+              <i class="fa-solid fa-grip"></i>
+            </button>
+            <button class="gallery-view-btn" id="gallery-masonry-btn" title="List View">
+              <i class="fa-solid fa-list"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gallery Stats Bar -->
+      <div class="gallery-stats-bar" id="gallery-stats-bar" style="display:none;">
+        <span id="gallery-photo-count"><i class="fa-solid fa-image"></i> <strong>0</strong> photos</span>
+        <span id="gallery-trip-count"><i class="fa-solid fa-suitcase"></i> <strong>0</strong> trips</span>
+      </div>
+
+      <!-- Photo Grid -->
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Upload Photo Modal ===== -->
+  <div class="modal-overlay" id="upload-photo-modal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width:580px;">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-cloud-arrow-up" style="color:var(--turquoise-500);"></i> Upload Travel Photos</h3>
+        <button class="modal-close-btn" data-close-modal="upload-photo-modal" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="upload-photo-form">
+        <div class="modal-body">
+
+          <!-- Trip selector -->
+          <div class="form-group" style="margin-bottom:1.15rem;">
+            <label class="form-label" for="photo-trip-select">
+              <i class="fa-solid fa-suitcase-rolling" style="color:var(--turquoise-500);"></i> Organise Under Trip *
+            </label>
+            <select id="photo-trip-select" class="form-control" required>
+              <option value="">Select a trip…</option>
+            </select>
+          </div>
+
+          <!-- Caption -->
+          <div class="form-group" style="margin-bottom:1.15rem;">
+            <label class="form-label" for="photo-caption-input">
+              <i class="fa-solid fa-quote-left" style="color:var(--turquoise-500);"></i> Caption
+            </label>
+            <input type="text" id="photo-caption-input" class="form-control" placeholder="e.g. Sunset view from Rohtang Pass" maxlength="120">
+          </div>
+
+          <!-- File upload drop zone -->
+          <div class="form-group" style="margin-bottom:1.15rem;">
+            <label class="form-label">
+              <i class="fa-solid fa-camera" style="color:var(--turquoise-500);"></i> Choose Photo(s)
+            </label>
+            <div class="photo-drop-zone" id="photo-drop-zone">
+              <i class="fa-solid fa-cloud-arrow-up photo-drop-icon"></i>
+              <p class="photo-drop-text">Drop images here or <strong>click to browse</strong></p>
+              <p class="photo-drop-hint">JPG, PNG, WEBP · up to 5 files at once · compressed automatically</p>
+              <input type="file" id="photo-file-input" accept="image/*" multiple style="display:none;">
+            </div>
+            <!-- Staged previews before save -->
+            <div class="staged-photos-wrap" id="staged-photos-wrap" style="display:none;">
+              <div class="staged-photos-grid" id="staged-photos-grid"></div>
+            </div>
+          </div>
+
+          <!-- OR URL input -->
+          <div class="form-group">
+            <label class="form-label">
+              <i class="fa-solid fa-link" style="color:var(--turquoise-500);"></i> …or enter image URL
+            </label>
+            <div style="display:flex; gap:0.5rem;">
+              <input type="url" id="photo-url-input" class="form-control" placeholder="https://…">
+              <button type="button" class="btn btn-outline" id="add-photo-url-btn" style="white-space:nowrap;">
+                <i class="fa-solid fa-plus"></i> Add
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="upload-photo-modal">Cancel</button>
+          <button type="submit" class="btn btn-turquoise" id="save-photos-btn">
+            <i class="fa-solid fa-floppy-disk"></i> Save to Gallery
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== Edit Photo Caption Modal ===== -->
+  <div class="modal-overlay" id="edit-photo-modal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width:480px;">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-pen-to-square" style="color:var(--turquoise-500);"></i> Edit Photo</h3>
+        <button class="modal-close-btn" data-close-modal="edit-photo-modal" aria-label="Close">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img id="edit-photo-preview-img" src="" alt="Photo" style="width:100%; max-height:220px; object-fit:cover; border-radius:var(--radius-md); margin-bottom:1.25rem;">
+        <div class="form-group" style="margin-bottom:1.15rem;">
+          <label class="form-label" for="edit-photo-trip">
+            <i class="fa-solid fa-suitcase-rolling" style="color:var(--turquoise-500);"></i> Trip
+          </label>
+          <select id="edit-photo-trip" class="form-control"></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-photo-caption">
+            <i class="fa-solid fa-quote-left" style="color:var(--turquoise-500);"></i> Caption
+          </label>
+          <input type="text" id="edit-photo-caption" class="form-control" placeholder="Add a caption…" maxlength="120">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-close-modal="edit-photo-modal">Cancel</button>
+        <button type="button" class="btn btn-turquoise" id="save-edit-photo-btn">
+          <i class="fa-solid fa-floppy-disk"></i> Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Lightbox / Full-screen Photo Viewer ===== -->
+  <div class="lightbox-overlay" id="lightbox-overlay" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lightbox-close-btn" aria-label="Close lightbox">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev-btn" aria-label="Previous photo">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Full-size photo">
+      <div class="lightbox-info">
+        <span class="lightbox-caption" id="lightbox-caption"></span>
+        <span class="lightbox-trip" id="lightbox-trip"></span>
+      </div>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next-btn" aria-label="Next photo">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
+
+  <!-- Packing Checklist Section -->  <section class="section" id="checklist" style="background-color: var(--bg-surface-secondary);">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-check-double"></i> Preparation</span>
+        <h2 class="section-title">Travel Packing Checklist</h2>
+        <p class="section-subtitle">Stay organized and stress-free. Check off items as you pack your bags.</p>
+      </div>
+
+      <div class="checklist-wrapper">
+        <div class="checklist-header">
+          <div>
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">Bag Readiness Tracker</h3>
+            <p id="packing-progress-text" style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.2rem;">0 of 0 items packed</p>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button class="btn btn-outline btn-sm" id="clear-packed-btn">
+              <i class="fa-solid fa-check"></i> Clear Done
+            </button>
+            <button class="btn btn-outline btn-sm" id="reset-packing-btn">
+              <i class="fa-solid fa-rotate-left"></i> Reset Defaults
+            </button>
+          </div>
+        </div>
+
+        <div class="progress-bar-bg" style="margin-bottom: 2rem;">
+          <div class="progress-bar-fill" id="packing-progress-fill" style="width: 0%;"></div>
+        </div>
+
+        <!-- Add Custom Packing Item -->
+        <form id="add-packing-form" class="checklist-add-form">
+          <input type="text" id="new-pack-item-input" class="form-control" placeholder="Add custom item to pack (e.g. Scarf, Tripod, Drone)..." required>
+          <select id="new-pack-category-select" class="form-control">
+            <option value="Essentials">Essentials</option>
+            <option value="Documents">Documents</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Toiletries">Toiletries</option>
+          </select>
+          <button type="submit" class="btn btn-turquoise">
+            <i class="fa-solid fa-plus"></i> Add
+          </button>
+        </form>
+
+        <!-- Categories Grid -->
+        <div class="checklist-grid" id="checklist-grid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-badge"><i class="fa-solid fa-quote-left"></i> Traveler Stories</span>
+        <h2 class="section-title">Loved by Globetrotters</h2>
+        <p class="section-subtitle">Real experiences shared by passionate adventurers who planned their holidays with TravelMate.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-text">
+            "TravelMate made our anniversary trip to Munnar and Alleppey completely hassle-free! The expense tracking prevented us from overspending, and the packing checklist ensured we didn't forget a thing."
+          </p>
+          <div class="review-author">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80" alt="Priya Sharma" class="author-img">
+            <div class="author-info">
+              <h4>Priya Sharma</h4>
+              <p>Traveled to Kerala • Nov 2025</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <p class="review-text">
+            "Planning a trip to Switzerland with 4 friends used to be messy with group chats. With TravelMate's trip planner and budget tracker, everyone knew the plan and budget instantly. 10/10!"
+          </p>
+          <div class="review-author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Rahul Verma" class="author-img">
+            <div class="author-info">
+              <h4>Rahul Verma</h4>
+              <p>Traveled to Switzerland • Jan 2026</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star-half-stroke"></i>
+          </div>
+          <p class="review-text">
+            "The Bali destination highlights and estimated budget guidance were spot on! I could pre-plan our Ubud villa stay and surf sessions easily right from the wishlist."
+          </p>
+          <div class="review-author">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Ananya Nair" class="author-img">
+            <div class="author-info">
+              <h4>Ananya Nair</h4>
+              <p>Traveled to Bali • Dec 2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Info -->
+        <div class="footer-brand">
+          <h3><i class="fa-solid fa-paper-plane"></i> TravelMate</h3>
+          <p>
+            Your ultimate travel planning companion. Discover handpicked escapes, organize realistic budgets, and curate lifelong memories with ease.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-link" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-link" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-link" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="#explore">Munnar Tea Hills</a></li>
+            <li><a href="#explore">Goa Coastline</a></li>
+            <li><a href="#explore">Manali Peaks</a></li>
+            <li><a href="#explore">Paris City Tour</a></li>
+            <li><a href="#explore">Bali Island Life</a></li>
+            <li><a href="#explore">Maldives Overwater</a></li>
+          </ul>
+        </div>
+
+        <!-- Features -->
+        <div class="footer-col">
+          <h4>Trip Tools</h4>
+          <ul class="footer-links">
+            <li><a href="#planner">Trip Itinerary Creator</a></li>
+            <li><a href="#budget">Expense & Budget Calculator</a></li>
+            <li><a href="#wishlist">Saved Favorites Wishlist</a></li>
+            <li><a href="#checklist">Interactive Packing Bag</a></li>
+            <li><a href="login.html">Sign In / Profile</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter Subscription -->
+        <div class="footer-col">
+          <h4>Travel Deals & Tips</h4>
+          <p style="font-size: 0.885rem; margin-bottom: 1rem;">
+            Subscribe to receive seasonal flight discounts, secret trekking trails, and itinerary guides.
+          </p>
+          <form class="newsletter-form" id="newsletter-form">
+            <div class="newsletter-input-group">
+              <input type="email" id="newsletter-email" placeholder="Your email address" required>
+              <button type="submit" class="btn btn-turquoise">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          <p>&copy; 2026 TravelMate Platform. Built with pure HTML, CSS, and Vanilla JavaScript. All data saved locally.</p>
+          <p style="font-size: 0.8rem; color: #64748b; margin-top: 0.35rem;">
+            <i class="fa-solid fa-graduation-cap"></i> Academic Project Showcase: Client-side localStorage and sessionStorage authentication is implemented for educational demonstration.
+          </p>
+        </div>
+        <div style="display:flex; gap:1.5rem;">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Support Center</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       MODALS
+       ========================================== -->
+
+  <!-- 1. Destination Details Modal -->
+  <div class="modal-overlay" id="dest-modal" role="dialog" aria-modal="true" aria-labelledby="dest-modal-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="dest-modal-title">Destination Details</h3>
+        <button class="modal-close-btn" data-close-modal="dest-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="dest-modal-body">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Edit Trip Modal -->
+  <div class="modal-overlay" id="edit-trip-modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Trip Details</h3>
+        <button class="modal-close-btn" data-close-modal="edit-trip-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="edit-trip-form">
+        <div class="modal-body">
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label">Trip Name *</label>
+            <input type="text" id="edit-trip-name" class="form-control" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 1rem;">
+            <label class="form-label">Destination *</label>
+            <input type="text" id="edit-trip-destination" class="form-control" required>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Start Date *</label>
+              <input type="date" id="edit-trip-start" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">End Date *</label>
+              <input type="date" id="edit-trip-end" class="form-control" required>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Travellers *</label>
+              <input type="number" id="edit-trip-travellers" class="form-control" min="1" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Budget (₹) *</label>
+              <input type="number" id="edit-trip-budget" class="form-control" min="1000" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes</label>
+            <textarea id="edit-trip-notes" class="form-control" rows="2"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="edit-trip-modal">Cancel</button>
+          <button type="submit" class="btn btn-turquoise">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. View Trip Modal -->
+  <div class="modal-overlay" id="view-trip-modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="view-trip-modal-title">Trip Overview</h3>
+        <button class="modal-close-btn" data-close-modal="view-trip-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="view-trip-modal-body">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-close-modal="view-trip-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. User Profile Modal -->
+  <div class="modal-overlay" id="profile-modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Traveler Profile</h3>
+        <button class="modal-close-btn" data-close-modal="profile-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="profile-modal-body">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="modal-footer" style="justify-content:space-between;">
+        <button type="button" class="btn btn-outline" data-close-modal="profile-modal">Close</button>
+        <button type="button" class="btn btn-danger" id="profile-logout-btn">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Delete Confirmation Modal -->
+  <div class="modal-overlay" id="confirm-modal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width:440px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="confirm-modal-title">Confirm Action</h3>
+        <button class="modal-close-btn" data-close-modal="confirm-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="confirm-modal-msg" style="color:var(--text-secondary); line-height:1.6;">Are you sure you want to proceed?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-close-modal="confirm-modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirm-modal-action-btn">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. New Journal Entry Modal -->
+  <div class="modal-overlay" id="new-journal-modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-pen-nib" style="color:var(--turquoise-500);"></i> New Journal Entry</h3>
+        <button class="modal-close-btn" data-close-modal="new-journal-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="new-journal-form">
+        <div class="modal-body">
+          <!-- Related Trip -->
+          <div class="form-group" style="margin-bottom: 1.15rem;">
+            <label class="form-label" for="new-journal-trip">
+              <i class="fa-solid fa-plane-departure" style="color:var(--turquoise-500);"></i> Related Trip
+            </label>
+            <select id="new-journal-trip" class="form-control">
+              <option value="">General Travel Story (No Trip Linked)</option>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <!-- Memory Title -->
+          <div class="form-group" style="margin-bottom: 1.15rem;">
+            <label class="form-label" for="new-journal-title">
+              <i class="fa-solid fa-heading" style="color:var(--turquoise-500);"></i> Entry Title *
+            </label>
+            <input type="text" id="new-journal-title" class="form-control" placeholder="e.g. Sunrise Shikara Ride on Dal Lake" required>
+          </div>
+
+          <!-- Travel Date -->
+          <div class="form-group" style="margin-bottom: 1.15rem;">
+            <label class="form-label" for="new-journal-date">
+              <i class="fa-regular fa-calendar-days" style="color:var(--turquoise-500);"></i> Travel Date *
+            </label>
+            <input type="date" id="new-journal-date" class="form-control" required>
+          </div>
+
+          <!-- Optional Photograph -->
+          <div class="form-group" style="margin-bottom: 1.15rem;">
+            <label class="form-label">
+              <i class="fa-solid fa-camera" style="color:var(--turquoise-500);"></i> Optional Photograph
+            </label>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <input type="file" id="new-journal-file" class="form-control" accept="image/*">
+              <input type="url" id="new-journal-url" class="form-control" placeholder="...or enter image URL (e.g. Unsplash URL)">
+            </div>
+            <!-- Image Preview Box -->
+            <div class="image-preview-container" id="new-journal-preview-box">
+              <img src="" id="new-journal-preview-img" alt="Preview">
+              <button type="button" class="remove-preview-btn" id="new-journal-remove-img-btn" title="Remove Photo">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Description / Reflections -->
+          <div class="form-group">
+            <label class="form-label" for="new-journal-desc">
+              <i class="fa-solid fa-book-open" style="color:var(--turquoise-500);"></i> Memory Reflections & Highlights *
+            </label>
+            <textarea id="new-journal-desc" class="form-control" rows="4" placeholder="Describe the sights, sounds, food, feelings, and memorable experiences..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="new-journal-modal">Cancel</button>
+          <button type="submit" class="btn btn-turquoise">
+            <i class="fa-solid fa-floppy-disk"></i> Save Memory
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 7. Edit Journal Entry Modal -->
+  <div class="modal-overlay" id="edit-journal-modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title"><i class="fa-solid fa-pen-to-square" style="color:var(--turquoise-500);"></i> Edit Journal Memory</h3>
+        <button class="modal-close-btn" data-close-modal="edit-journal-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form id="edit-journal-form">
+        <div class="modal-body">
+          <div class="form-group" style="margin-bottom: 1.15rem;">
+            <label class="form-label" for="edit-journal-trip">Related Trip</label>
+            <select id="edit-journal-trip" class="form-control">
+              <option value="">General Travel Story (No Trip Linked)</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.15rem;">
+            <label class="form-label" for="edit-journal-title">Entry Title *</label>
+            <input type="text" id="edit-journal-title" class="form-control" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.15rem;">
+            <label class="form-label" for="edit-journal-date">Travel Date *</label>
+            <input type="date" id="edit-journal-date" class="form-control" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.15rem;">
+            <label class="form-label">Update Photograph</label>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <input type="file" id="edit-journal-file" class="form-control" accept="image/*">
+              <input type="url" id="edit-journal-url" class="form-control" placeholder="...or enter image URL">
+            </div>
+            <div class="image-preview-container" id="edit-journal-preview-box">
+              <img src="" id="edit-journal-preview-img" alt="Preview">
+              <button type="button" class="remove-preview-btn" id="edit-journal-remove-img-btn" title="Remove Photo">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="edit-journal-desc">Reflections & Notes *</label>
+            <textarea id="edit-journal-desc" class="form-control" rows="4" required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-close-modal="edit-journal-modal">Cancel</button>
+          <button type="submit" class="btn btn-turquoise">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 8. View Journal Memory Modal -->
+  <div class="modal-overlay" id="view-journal-modal" role="dialog" aria-modal="true">
+    <div class="modal-content" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="view-journal-title">Journal Memory</h3>
+        <button class="modal-close-btn" data-close-modal="view-journal-modal" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="view-journal-body">
+        <!-- Injected dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-close-modal="view-journal-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>
