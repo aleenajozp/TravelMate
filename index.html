@@ -31,7 +31,7 @@
       </a>
 
       <!-- Navigation Links -->
-      <nav>
+      <nav aria-label="Primary navigation">
         <ul class="nav-links" id="nav-links">
           <li><a href="#hero" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a></li>
           <li><a href="#explore" class="nav-link"><i class="fa-solid fa-compass"></i> Explore</a></li>
@@ -40,14 +40,13 @@
           <li><a href="#budget" class="nav-link"><i class="fa-solid fa-wallet"></i> Budget</a></li>
           <li>
             <a href="#wishlist" class="nav-link">
-              <i class="fa-solid fa-heart"></i> Wishlist 
-              <span id="wishlist-count-badge" class="section-badge" style="padding: 0.15rem 0.5rem; font-size:0.75rem; margin-left:0.25rem;">0</span>
+              <i class="fa-solid fa-bookmark"></i>
+              <span>Wishlist <span id="wishlist-count-badge" class="section-badge">0</span></span>
             </a>
           </li>
           <li><a href="#journal" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Journal</a></li>
           <li><a href="#gallery" class="nav-link"><i class="fa-solid fa-images"></i> Gallery</a></li>
           <li><a href="#checklist" class="nav-link"><i class="fa-solid fa-list-check"></i> Packing</a></li>
-          <li><a href="form.html">Form</a></li>
         </ul>
       </nav>
 
@@ -64,7 +63,7 @@
         </div>
 
         <!-- Mobile Menu Hamburger Button -->
-        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation Menu">
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-controls="nav-links" aria-expanded="false">
           <i class="fa-solid fa-bars"></i>
         </button>
       </div>

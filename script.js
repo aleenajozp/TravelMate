@@ -2937,24 +2937,63 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileMenuBtn = document.getElementById("mobile-menu-btn");
   const navLinks = document.getElementById("nav-links");
   if (mobileMenuBtn && navLinks) {
-    mobileMenuBtn.addEventListener("click", () => {
-      navLinks.classList.toggle("open");
+    const closeNavigationMenu = () => {
+      navLinks.classList.remove("open");
+      mobileMenuBtn.setAttribute("aria-expanded", "false");
       const icon = mobileMenuBtn.querySelector("i");
       if (icon) {
-        icon.classList.toggle("fa-bars");
-        icon.classList.toggle("fa-xmark");
+        icon.classList.add("fa-bars");
+        icon.classList.remove("fa-xmark");
+      }
+    };
+
+    mobileMenuBtn.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
+      const icon = mobileMenuBtn.querySelector("i");
+      if (icon) {
+        icon.classList.toggle("fa-bars", !isOpen);
+        icon.classList.toggle("fa-xmark", isOpen);
       }
     });
 
     navLinks.querySelectorAll(".nav-link").forEach(link => {
       link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        const icon = mobileMenuBtn.querySelector("i");
-        if (icon) {
-          icon.classList.add("fa-bars");
-          icon.classList.remove("fa-xmark");
-        }
+        closeNavigationMenu();
       });
+    });
+
+    document.addEventListener("click", event => {
+      if (!navLinks.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+        closeNavigationMenu();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeNavigationMenu();
+    });
+
+    const navItems = Array.from(navLinks.querySelectorAll(".nav-link"));
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const activeLink = navItems.find(link => link.getAttribute("href") === `#${entry.target.id}`);
+        if (!activeLink) return;
+        navItems.forEach(link => {
+          const isActive = link === activeLink;
+          link.classList.toggle("active", isActive);
+          if (isActive) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      });
+    }, { rootMargin: "-25% 0px -65% 0px" });
+
+    navItems.forEach(link => {
+      const section = document.querySelector(link.getAttribute("href"));
+      if (section) sectionObserver.observe(section);
     });
   }
 
